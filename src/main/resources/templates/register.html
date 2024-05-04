@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrering</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+  <body>
+        <nav>
+          <ul>
+            <li>
+              <a href="#">
+                <img src="/static/styles/media/img/m-profile.png" alt="">
+                <span class="nav-item">Code info</span>
+              </a>
+            </li>
+              <li><a href="#">
+                  <i class="fas fa-home"></i>
+                  <span class="nav-item">Hjem</span>
+              </a></li>
+              <li><a href="#">
+                  <i class="fas fa-chart-bar"></i>
+                  <span class="nav-item">Analyse</span>
+              </a></li>
+              <li><a href="#">
+                  <i class="fas fa-skiing"></i>
+                  <span class="nav-item">Sport</span>
+              </a></li>
+              <li><a href="#">
+                  <i class="fas fa-user"></i>
+                  <span class="nav-item">Bruker</span>
+              </a></li>
+              <li><a href="#">
+                  <i class="fas fa-cog"></i>
+                  <span class="nav-item">Settings</span>
+              </a></li>
+              <li><a href="#">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span class="nav-item">Logg ut</span>
+              </a></li>
+          </ul>
+        </nav>
+  </body>
+</html>
+
+<h1>Dette er hjemsiden</h1>
+<h2>Velkommen <span th:text="${username}"></span></h2>
+<h3>Ditt passord er <span th:text="${password}"></span></h3>
