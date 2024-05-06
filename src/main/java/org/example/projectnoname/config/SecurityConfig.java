@@ -1,10 +1,12 @@
 package org.example.projectnoname.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -22,6 +24,9 @@ import javax.sql.DataSource;
 public class SecurityConfig {
 
 
+
+
+
     @Bean
     EmbeddedDatabase dataSource() {
         return new EmbeddedDatabaseBuilder()
@@ -30,6 +35,31 @@ public class SecurityConfig {
                 .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
                 .build();
     }
+
+
+    /*
+
+        @Autowired
+        public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+            auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+                    .dataSource(dataSource)
+                    .usersByUsernameQuery("select username, password, enabled from users where username=?")
+                    .authoritiesByUsernameQuery("select username, authority from users where username=?");
+        }
+
+         @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .withDefaultSchema()
+                .withUser(User.withUsername("user")
+                        .password(passwordEncoder().encode("pass"))
+                        .roles("USER"));
+    }
+    */
 
     @Bean
     JdbcUserDetailsManager users(DataSource dataSource, PasswordEncoder encoder) {
@@ -50,23 +80,6 @@ public class SecurityConfig {
         return userDetails;
     }
 
-    /*
-    @Bean
-    public InMemoryUserDetailsManager UserDetailsManager() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("mathias")
-                .password("ninnin")
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("ninnin")
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user,admin);
-    }
-*/
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -96,6 +109,8 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 
 
 }
