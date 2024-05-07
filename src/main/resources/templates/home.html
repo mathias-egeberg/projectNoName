@@ -36,7 +36,8 @@
             <i class="fas fa-user"></i>
             <span class="nav-item">Bruker</span>
         </a></li>
-        <li><a href="/home/settings">
+        <li th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+            <a href="/home/settings">
             <i class="fas fa-cog"></i>
             <span class="nav-item">Settings</span>
         </a></li>
